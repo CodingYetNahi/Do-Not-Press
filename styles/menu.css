@@ -18,6 +18,7 @@
 .menu-links h2,.share-links h2{margin-bottom:4px}
 .share-links button{text-align:left;width:100%}
 body.menu-open{overflow:hidden}
+.hud .score-value{display:block;margin-top:1px;font-size:1.45rem;font-weight:800;letter-spacing:-.03em}
 .intro h1 small{display:block;margin-top:16px;color:var(--secondary);font-size:clamp(.78rem,3.2vw,1rem);line-height:1.15;letter-spacing:.08em;font-weight:700;text-transform:uppercase}
 .gameover h2{display:flex;align-items:baseline;gap:10px;font-size:clamp(1rem,4vw,1.25rem);letter-spacing:0;line-height:1;font-weight:700;color:var(--secondary)}
 .gameover h2 span{font-size:clamp(5rem,24vw,9rem);line-height:.9;letter-spacing:-.07em;font-weight:850;color:var(--text)}
