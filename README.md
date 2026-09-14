@@ -13,8 +13,9 @@ A mobile-first, one-life arcade of short, mischievous micro-games. Press the but
 - Use the **♪ / ×** control to toggle generated sound. Critical information is always visual too.
 
 A round has one life. Every success adds one point and immediately introduces a randomly chosen challenge; the previous two challenges are excluded where possible. Difficulty grows with the current score.
+Decision challenges provide at least seven seconds to answer, while prompts built around reflexes or intentional waiting retain their mechanic-specific timing windows.
 
-## The 20 challenges
+## The 40 challenges
 
 1. **Tap Seven** — tap exactly seven times.
 2. **Hold** — hold, and at higher difficulty react to “LET GO”.
@@ -36,6 +37,26 @@ A round has one life. Every success adds one point and immediately introduces a 
 18. **Unlock It** — drag a key into its lock.
 19. **Smallest to Biggest** — tap targets in size order.
 20. **Thread the Needle** — stop a moving line inside a narrow gap.
+21. **Double Tap** — land two taps inside a short timing window.
+22. **Quick Math** — solve a simple equation under pressure.
+23. **Ink Color** — beat the Stroop effect and choose the ink color.
+24. **Moving Target** — hit a target following a curved path.
+25. **Count the Stars** — count scattered stars before time expires.
+26. **Tap Order** — clear shuffled numbers from one to four.
+27. **Avoid Bombs** — collect four hearts without touching a bomb.
+28. **Where Was It?** — remember a briefly shown position.
+29. **Opposites** — choose the direction opposite an arrow.
+30. **Find the Pair** — identify two matching symbols.
+31. **Higher Number** — make a quick numerical comparison.
+32. **Release Zone** — hold and release during a brief green window.
+33. **Tiny Target** — accurately tap a very small dot.
+34. **Three Seconds** — estimate a three-second interval.
+35. **Last Letter** — read a word and pick its final letter.
+36. **Tap the Center** — locate the exact center of the arena.
+37. **One Is Safe** — choose the check mark among traps.
+38. **Chase the Light** — follow a light around a grid.
+39. **Anything but Red** — choose either non-red target.
+40. **Rapid Fire** — complete ten taps against a tight clock.
 
 ## Local development
 
