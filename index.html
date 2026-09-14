@@ -5,24 +5,49 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
   <meta name="theme-color" content="#000000">
   <meta name="color-scheme" content="dark">
-  <title>DON'T PRESS THAT — 100 Fast Fun Mini Games</title>
-  <meta name="description" content="Play DON'T PRESS THAT, a free fast-paced fun game with 100 bite-size arcade mini games, reaction challenges, memory games, timing tests and quick puzzles.">
-  <meta name="keywords" content="fun game, mini games, arcade game, browser game, free online game, reaction game, quick games, casual game, memory game, timing game, mobile game, HTML5 game">
+  <title>DON'T PRESS THAT — Brain Games & Mini Challenges</title>
+  <meta name="description" content="Play DON'T PRESS THAT, a free fast-paced collection of brain games, memory challenges, reaction tests, path puzzles, timing games and quick logic tasks.">
+  <meta name="keywords" content="fun game, brain games, mini games, memory game, logic game, reaction game, path game, browser game, free online game, puzzle game, timing game, HTML5 game">
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
   <link rel="canonical" href="https://whyiamdoingthis.fun/">
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <link rel="apple-touch-icon" href="./apple-touch-icon.svg">
   <link rel="manifest" href="./site.webmanifest">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="DON'T PRESS THAT">
-  <meta property="og:title" content="DON'T PRESS THAT — 100 Fast Fun Mini Games">
-  <meta property="og:description" content="A free rapid-fire arcade packed with 100 quick mini games.">
+  <meta property="og:title" content="DON'T PRESS THAT — Brain Games & Mini Challenges">
+  <meta property="og:description" content="Fast brain games, memory challenges, path puzzles, reaction tests and logic mini games in one free browser game.">
   <meta property="og:url" content="https://whyiamdoingthis.fun/">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="DON'T PRESS THAT — 100 Fast Fun Mini Games">
-  <meta name="twitter:description" content="100 quick arcade mini games in one free browser game.">
+  <meta name="twitter:title" content="DON'T PRESS THAT — Brain Games & Mini Challenges">
+  <meta name="twitter:description" content="A free browser collection of brain games, memory challenges, path puzzles and reaction tests.">
   <link rel="stylesheet" href="./styles/main.css">
   <link rel="stylesheet" href="./styles/brain-games.css">
+  <link rel="stylesheet" href="./styles/menu.css">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"VideoGame","name":"DON'T PRESS THAT","url":"https://whyiamdoingthis.fun/","description":"A free browser arcade with 100 fast mini games focused on reaction, memory, timing and quick decisions.","genre":["Arcade","Casual","Puzzle","Reaction"],"playMode":"SinglePlayer","applicationCategory":"Game","operatingSystem":"Any modern web browser","inLanguage":"en","isAccessibleForFree":true}
+  {
+    "@context":"https://schema.org",
+    "@graph":[
+      {
+        "@type":"VideoGame",
+        "name":"DON'T PRESS THAT",
+        "url":"https://whyiamdoingthis.fun/",
+        "description":"A free browser game featuring brain games, memory challenges, path puzzles, reaction tests, timing tasks and logic mini games.",
+        "genre":["Brain Game","Puzzle","Arcade","Memory","Reaction"],
+        "playMode":"SinglePlayer",
+        "applicationCategory":"Game",
+        "operatingSystem":"Any modern web browser",
+        "inLanguage":"en",
+        "isAccessibleForFree":true
+      },
+      {
+        "@type":"WebSite",
+        "name":"DON'T PRESS THAT",
+        "url":"https://whyiamdoingthis.fun/",
+        "inLanguage":"en"
+      }
+    ]
+  }
   </script>
 </head>
 <body>
@@ -32,10 +57,11 @@
       <div><small>BEST</small><strong id="best">0</strong></div>
     </header>
 
+    <button id="menu-toggle" class="menu-toggle" aria-label="Open menu" aria-controls="site-menu" aria-expanded="false"><span></span><span></span><span></span></button>
     <button id="mute" class="icon-button" aria-label="Mute sound" title="Sound">♪</button>
 
     <section id="intro" class="screen intro">
-      <h1>DON'T<br><span>PRESS</span><br>THAT</h1>
+      <h1>DON'T<br><span>PRESS</span><br>THAT<small>Brain Games &amp; Mini Challenges</small></h1>
       <button id="forbidden" class="forbidden" aria-label="Start DON'T PRESS THAT"><span>DO NOT<br>PRESS</span></button>
     </section>
 
@@ -48,16 +74,42 @@
 
     <section id="gameover" class="screen gameover hidden">
       <p class="eyebrow">GAME OVER</p>
-      <h2><span id="final-score">0</span></h2>
+      <h2>Final score <span id="final-score">0</span></h2>
       <p class="best-line">BEST <b id="final-best">0</b></p>
       <p id="verdict" class="verdict"></p>
       <button id="restart" class="cta">PLAY AGAIN</button>
     </section>
 
+    <aside id="site-menu" class="site-menu" aria-hidden="true" aria-label="Game menu">
+      <div class="menu-backdrop" data-close-menu></div>
+      <div class="menu-panel" role="dialog" aria-modal="true" aria-labelledby="menu-title">
+        <div class="menu-head"><h2 id="menu-title">Menu</h2><button id="menu-close" class="menu-close" aria-label="Close menu">×</button></div>
+        <nav class="menu-nav" aria-label="Site navigation">
+          <a href="./about.html">About &amp; How to Play</a>
+          <a href="./terms.html">Terms &amp; Conditions</a>
+          <a href="./privacy.html">Privacy</a>
+        </nav>
+        <section class="menu-copy" aria-labelledby="about-title">
+          <h2 id="about-title">About the brain game</h2>
+          <p><strong>DON'T PRESS THAT</strong> is a free browser game built around short brain games and mini challenges. Each round asks you to read quickly, notice a pattern and make a deliberate choice before the timer expires. The game mixes memory, visual attention, reaction control, number reasoning, direction changes, timing and path recall so a long run depends on more than fast tapping.</p>
+          <p>Rounds are deliberately varied. You may need to remember highlighted tiles, follow a path in the correct order, solve a number sequence, count symbols, identify an odd object, compare values, rotate a direction mentally or stop a moving marker inside a target zone. Some challenges reward patience rather than speed. The game also separates similar challenge families so the same type of task does not immediately repeat.</p>
+          <p>Follow the Path includes five difficulty levels, from a short five-tile route to an extreme twenty-five-tile sequence. Memory and pattern rounds become demanding because the answer is not always visible when you act. Ordering games include decoys and reshuffle after correct choices. These mechanics are intended to make the experience feel like a compact set of brain puzzles rather than a collection of automatic tap tests.</p>
+          <p>No account is required to play. Your best score and sound preference can be stored locally in your browser so they remain available on the same device. Opening this menu pauses the current challenge and closing it resumes the game safely. You can mute sound at any time, replay after a failed round and use the site on a phone, tablet or desktop browser.</p>
+          <p>For information about the Dhamarikar Group of Businesses and our other platforms, visit the About &amp; How to Play page.</p>
+        </section>
+        <section class="share-links" aria-labelledby="share-title">
+          <h2 id="share-title">Share</h2>
+          <button id="share-game" type="button">Share this game</button>
+          <a href="https://twitter.com/intent/tweet?text=Play%20DON%27T%20PRESS%20THAT&amp;url=https%3A%2F%2Fwhyiamdoingthis.fun%2F" target="_blank" rel="noopener noreferrer">Share on X</a>
+          <a href="https://wa.me/?text=Play%20DON%27T%20PRESS%20THAT%20https%3A%2F%2Fwhyiamdoingthis.fun%2F" target="_blank" rel="noopener noreferrer">Share on WhatsApp</a>
+        </section>
+      </div>
+    </aside>
+
     <div id="flash" aria-hidden="true"></div>
     <div id="toast" role="status"></div>
   </main>
-  <noscript>JavaScript is required to play.</noscript>
+  <noscript>JavaScript is required to play DON'T PRESS THAT brain games and mini challenges.</noscript>
   <script type="module" src="./js/main.js"></script>
 </body>
 </html>

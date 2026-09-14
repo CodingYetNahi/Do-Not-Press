@@ -41,6 +41,40 @@ mute.addEventListener('click',()=>{
   paintMute();
 });
 
+const menu=$('#site-menu'),menuToggle=$('#menu-toggle'),menuClose=$('#menu-close');
+function openMenu(){
+  game.pauseForMenu();
+  menu.classList.add('open');
+  menu.setAttribute('aria-hidden','false');
+  menuToggle.setAttribute('aria-expanded','true');
+  menuToggle.setAttribute('aria-label','Close menu');
+  document.body.classList.add('menu-open');
+  menuClose.focus();
+}
+function closeMenu(){
+  if(!menu.classList.contains('open'))return;
+  menu.classList.remove('open');
+  menu.setAttribute('aria-hidden','true');
+  menuToggle.setAttribute('aria-expanded','false');
+  menuToggle.setAttribute('aria-label','Open menu');
+  document.body.classList.remove('menu-open');
+  game.resumeFromMenu();
+  menuToggle.focus();
+}
+menuToggle.addEventListener('click',()=>menu.classList.contains('open')?closeMenu():openMenu());
+menuClose.addEventListener('click',closeMenu);
+menu.querySelectorAll('[data-close-menu]').forEach(x=>x.addEventListener('click',closeMenu));
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menu.classList.contains('open'))closeMenu()});
+
+const share=$('#share-game');
+share?.addEventListener('click',async()=>{
+  const data={title:"DON'T PRESS THAT",text:'Play brain games and mini challenges.',url:'https://whyiamdoingthis.fun/'};
+  try{
+    if(navigator.share)await navigator.share(data);
+    else if(navigator.clipboard){await navigator.clipboard.writeText(data.url);share.textContent='Link copied';setTimeout(()=>share.textContent='Share this game',1500)}
+  }catch{}
+});
+
 for(const type of ['contextmenu','selectstart','dragstart']){
   document.addEventListener(type,event=>event.preventDefault(),{capture:true});
 }

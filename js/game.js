@@ -12,11 +12,14 @@ export class Game{
     this.e=els;
     this.score=0;
     this.current=null;
+    this.currentFactory=null;
+    this.pausedFactory=null;
     this.deck=[];
     this.recentKinds=[];
     this.recentIds=[];
     this.state='intro';
     this.pausePending=false;
+    this.menuPaused=false;
     document.addEventListener('visibilitychange',()=>this.visibility());
     document.addEventListener('keydown',e=>this.key(e));
   }
@@ -49,18 +52,24 @@ export class Game{
     this.recentIds=[factory.id,...this.recentIds].slice(0,10);
     return factory;
   }
-  next(){
-    this.state='intro-challenge';
-    const factory=this.pick();
+  prepare(factory){
+    this.currentFactory=factory;
     this.e.arena.replaceChildren();
     this.e.instruction.textContent=factory.title;
     this.e.sub.textContent=factory.sub;
     this.e.timer.firstElementChild.style.transition='none';
     this.e.timer.firstElementChild.style.transform='scaleX(1)';
+  }
+  next(){
+    this.state='intro-challenge';
+    const factory=this.pick();
+    this.prepare(factory);
     const delay=Math.max(700,950-this.score*3);
     this.transition=setTimeout(()=>this.run(factory),delay);
   }
   run(factory){
+    if(this.menuPaused)return;
+    this.currentFactory=factory;
     this.state='active';
     const duration=durationFor(factory);
     this.current=factory({
@@ -75,6 +84,29 @@ export class Game{
     this.e.timer.firstElementChild.style.transition=`transform ${duration}ms linear`;
     requestAnimationFrame(()=>this.e.timer.firstElementChild.style.transform='scaleX(0)');
     this.current.start();
+  }
+  pauseForMenu(){
+    if(this.menuPaused)return;
+    this.menuPaused=true;
+    if(['active','intro-challenge'].includes(this.state)){
+      this.pausedFactory=this.currentFactory;
+      clearTimeout(this.transition);
+      this.current?.cleanup();
+      this.current=null;
+      this.state='menu-paused';
+      this.e.timer.firstElementChild.style.transition='none';
+    }
+  }
+  resumeFromMenu(){
+    if(!this.menuPaused)return;
+    this.menuPaused=false;
+    if(this.state==='menu-paused'&&this.pausedFactory){
+      const factory=this.pausedFactory;
+      this.pausedFactory=null;
+      this.prepare(factory);
+      this.state='intro-challenge';
+      this.transition=setTimeout(()=>this.run(factory),350);
+    }
   }
   win(){
     if(this.state!=='active')return;
@@ -128,7 +160,7 @@ export class Game{
     this.e.toast.classList.add('go');
   }
   key(e){
-    if(this.state!=='active')return;
+    if(this.state!=='active'||this.menuPaused)return;
     if([' ','Enter'].includes(e.key)){
       e.preventDefault();
       const target=document.activeElement?.matches('button,input')?document.activeElement:this.e.arena.querySelector('button');
@@ -143,7 +175,7 @@ export class Game{
       this.current?.cleanup();
       this.current=null;
       this.state='paused';
-    }else if(!document.hidden&&this.pausePending){
+    }else if(!document.hidden&&this.pausePending&&!this.menuPaused){
       this.pausePending=false;
       this.next();
     }
