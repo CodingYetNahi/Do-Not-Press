@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+  <meta name="theme-color" content="#070912"><meta name="description" content="DON'T PRESS THAT — a rapid-fire micro-game arcade.">
+  <title>DON'T PRESS THAT</title><link rel="stylesheet" href="./styles/main.css">
+</head>
+<body>
+  <main id="app" aria-live="polite">
+    <header class="hud hidden" id="hud"><div><small>SCORE</small><strong id="score">0</strong></div><div class="brand">DPT<span>•</span></div><div><small>BEST</small><strong id="best">0</strong></div></header>
+    <button id="mute" class="icon-button" aria-label="Mute sound" title="Sound">♪</button>
+    <section id="intro" class="screen intro">
+      <h1>DON'T<br><span>PRESS</span><br>THAT</h1>
+      <button id="forbidden" class="forbidden" aria-label="Do not press"><span>DO NOT<br>PRESS</span></button>
+      <p>Seriously.</p>
+    </section>
+    <section id="game" class="screen hidden">
+      <div id="instruction" class="instruction"></div><div id="sub" class="sub"></div>
+      <div id="timer" class="timer"><i></i></div>
+      <div id="arena" class="arena" role="application" aria-label="Challenge play area" tabindex="-1"></div>
+    </section>
+    <section id="gameover" class="screen gameover hidden">
+      <p class="eyebrow">GAME OVER</p><h2>YOU: <span id="final-score">0</span></h2><p>BEST: <b id="final-best">0</b></p>
+      <p id="verdict" class="verdict"></p><button id="restart" class="cta">ONE MORE?</button>
+      <details><summary>LOCAL DAMAGE REPORT</summary><div id="stats"></div></details>
+    </section>
+    <div id="flash" aria-hidden="true"></div><div id="toast" role="status"></div>
+  </main>
+  <noscript>This button requires JavaScript. It remains disappointed.</noscript>
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>
