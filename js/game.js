@@ -3,7 +3,7 @@ import{record,save}from'./storage.js';
 import{burst,flash,vibrate}from'./effects.js';
 
 const shuffle=a=>[...a].sort(()=>Math.random()-.5);
-const durationFor=factory=>factory.kind==='memory'?11000:factory.kind==='hold'?11000:10000;
+const durationFor=factory=>factory.limitMs||((factory.kind==='memory'||factory.kind==='hold')?11000:10000);
 
 export class Game{
   constructor({stats,audio,els}){
@@ -13,6 +13,8 @@ export class Game{
     this.score=0;
     this.current=null;
     this.deck=[];
+    this.recentKinds=[];
+    this.recentIds=[];
     this.state='intro';
     this.pausePending=false;
     document.addEventListener('visibilitychange',()=>this.visibility());
@@ -25,6 +27,8 @@ export class Game{
     this.stats.games++;
     save(this.stats);
     this.score=0;
+    this.recentKinds=[];
+    this.recentIds=[];
     this.refillDeck();
     this.e.intro.classList.add('hidden');
     this.e.over.classList.add('hidden');
@@ -33,7 +37,18 @@ export class Game{
     this.renderScore();
     this.next();
   }
-  pick(){if(!this.deck.length)this.refillDeck();return this.deck.pop()}
+  pick(){
+    if(!this.deck.length)this.refillDeck();
+    let candidates=this.deck.filter(x=>!this.recentKinds.includes(x.kind)&&!this.recentIds.includes(x.id));
+    if(!candidates.length)candidates=this.deck.filter(x=>!this.recentIds.includes(x.id));
+    if(!candidates.length)candidates=this.deck;
+    const factory=candidates[Math.floor(Math.random()*candidates.length)];
+    const index=this.deck.indexOf(factory);
+    if(index>=0)this.deck.splice(index,1);
+    this.recentKinds=[factory.kind,...this.recentKinds].slice(0,10);
+    this.recentIds=[factory.id,...this.recentIds].slice(0,10);
+    return factory;
+  }
   next(){
     this.state='intro-challenge';
     const factory=this.pick();
