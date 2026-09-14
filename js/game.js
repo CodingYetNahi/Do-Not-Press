@@ -1,9 +1,9 @@
-import{challenges}from'./challenges/index.js';
+import{challenges}from'./challenges/runtime.js';
 import{record,save}from'./storage.js';
 import{burst,flash,vibrate}from'./effects.js';
 
 const shuffle=a=>[...a].sort(()=>Math.random()-.5);
-const durationFor=factory=>factory.kind==='sequence'?12000:factory.kind==='hold'?11000:10000;
+const durationFor=factory=>factory.kind==='memory'?11000:factory.kind==='hold'?11000:10000;
 
 export class Game{
   constructor({stats,audio,els}){
