@@ -1,16 +1,9 @@
-import{challenges,challengeCount}from'./challenges/index.js';
+import{challenges}from'./challenges/index.js';
 import{record,save}from'./storage.js';
 import{burst,flash,vibrate}from'./effects.js';
 
-const verdicts=[
-  'So close. Unfortunately, close is still dead.',
-  'You had one job.',
-  'The button warned you.',
-  'Skill issue detected.',
-  'A bold strategy. It failed.',
-  'Again? Obviously.'
-];
 const shuffle=a=>[...a].sort(()=>Math.random()-.5);
+const durationFor=factory=>factory.kind==='sequence'?12000:factory.kind==='hold'?11000:10000;
 
 export class Game{
   constructor({stats,audio,els}){
@@ -25,9 +18,7 @@ export class Game{
     document.addEventListener('visibilitychange',()=>this.visibility());
     document.addEventListener('keydown',e=>this.key(e));
   }
-  refillDeck(){
-    this.deck=shuffle(challenges);
-  }
+  refillDeck(){this.deck=shuffle(challenges)}
   start(){
     this.audio.unlock();
     this.audio.startMusic();
@@ -42,10 +33,7 @@ export class Game{
     this.renderScore();
     this.next();
   }
-  pick(){
-    if(!this.deck.length)this.refillDeck();
-    return this.deck.pop();
-  }
+  pick(){if(!this.deck.length)this.refillDeck();return this.deck.pop()}
   next(){
     this.state='intro-challenge';
     const factory=this.pick();
@@ -54,16 +42,12 @@ export class Game{
     this.e.sub.textContent=factory.sub;
     this.e.timer.firstElementChild.style.transition='none';
     this.e.timer.firstElementChild.style.transform='scaleX(1)';
-    this.e.game.classList.add('challenge-in');
-    const delay=Math.max(650,900-this.score*3);
-    this.transition=setTimeout(()=>{
-      this.e.game.classList.remove('challenge-in');
-      this.run(factory);
-    },delay);
+    const delay=Math.max(700,950-this.score*3);
+    this.transition=setTimeout(()=>this.run(factory),delay);
   }
   run(factory){
     this.state='active';
-    const duration=10000;
+    const duration=durationFor(factory);
     this.current=factory({
       arena:this.e.arena,
       instruction:this.e.instruction,
@@ -84,28 +68,25 @@ export class Game{
     this.current.cleanup();
     this.audio.play('success');
     vibrate([20,35,20]);
-    flash(this.e.flash,'#6cf4da');
-    burst(this.e.arena);
+    flash(this.e.flash,'#30d158');
+    burst(this.e.arena,'#30d158',12);
     this.score++;
     this.stats.best=Math.max(this.stats.best,this.score);
     record(this.stats,id,this.score);
     this.renderScore();
     this.toast('+1');
-    setTimeout(()=>this.next(),560);
+    setTimeout(()=>this.next(),500);
   }
-  lose(reason='That did not work.'){
+  lose(reason='Try again.'){
     if(!['active','intro-challenge'].includes(this.state))return;
     this.state='failure';
     clearTimeout(this.transition);
     this.current?.cleanup();
     this.audio.play('fail');
     vibrate([70,30,100]);
-    flash(this.e.flash,'#ff4668');
+    flash(this.e.flash,'#ff453a');
     this.e.app.classList.add('shake');
-    setTimeout(()=>{
-      this.e.app.classList.remove('shake');
-      this.showOver(reason);
-    },520);
+    setTimeout(()=>{this.e.app.classList.remove('shake');this.showOver(reason)},420);
   }
   showOver(reason){
     this.state='over';
@@ -114,8 +95,7 @@ export class Game{
     this.e.over.classList.remove('hidden');
     this.e.final.textContent=this.score;
     this.e.finalBest.textContent=this.stats.best;
-    this.e.verdict.textContent=reason+' '+verdicts[Math.floor(Math.random()*verdicts.length)];
-    this.e.stats.textContent=`${this.stats.games} runs · ${this.stats.survived} challenges survived · ${this.stats.longest} longest streak · ${challengeCount} games in the deck`;
+    this.e.verdict.textContent=reason;
     save(this.stats);
     this.e.restart.focus();
   }
@@ -150,7 +130,6 @@ export class Game{
       this.state='paused';
     }else if(!document.hidden&&this.pausePending){
       this.pausePending=false;
-      this.toast('RESUMED');
       this.next();
     }
   }
