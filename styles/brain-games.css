@@ -1,0 +1,95 @@
+.count-field{
+  z-index:3;
+  inset:4% 5% 34%;
+  pointer-events:none;
+  overflow:hidden;
+}
+.count-symbol{
+  z-index:4;
+  color:#f5f5f7;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Apple Symbols","Segoe UI Symbol",sans-serif;
+  font-size:clamp(2.1rem,9vw,4rem);
+  font-weight:800;
+  line-height:1;
+  text-shadow:0 2px 10px rgba(0,0,0,.65),0 0 1px #fff;
+}
+.count-choices{
+  top:auto!important;
+  bottom:5%!important;
+  height:24%;
+  left:7%;
+  right:7%;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:9px;
+}
+.count-choices .arcade-choice{min-height:52px;font-size:1.35rem}
+
+.hard-order{
+  inset:8%;
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  align-content:center;
+  justify-content:stretch;
+  gap:10px;
+}
+.hard-order .order-item{
+  min-width:0;
+  min-height:68px;
+  font-size:1.5rem;
+}
+
+.path-grid{
+  position:absolute;
+  z-index:2;
+  inset:7%;
+  display:grid;
+  gap:clamp(5px,1.5vw,10px);
+  align-content:stretch;
+}
+.path-cell{
+  min-width:0;
+  min-height:0;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:clamp(10px,3vw,18px);
+  background:#2c2c2e;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.04);
+  transition:background .12s ease,transform .12s ease,box-shadow .12s ease;
+}
+.path-cell.lit{
+  background:#0a84ff;
+  box-shadow:0 0 0 2px rgba(10,132,255,.18),0 0 22px rgba(10,132,255,.35);
+  transform:scale(.94);
+}
+.path-cell.picked{
+  background:rgba(48,209,88,.3);
+  border-color:rgba(48,209,88,.72);
+}
+
+.pattern-sequence{
+  position:absolute;
+  left:7%;
+  right:7%;
+  top:13%;
+  min-height:86px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px 12px;
+  border-radius:20px;
+  background:#2c2c2e;
+  border:1px solid rgba(255,255,255,.08);
+  font-size:clamp(1.45rem,6.5vw,2.7rem);
+  font-weight:800;
+  letter-spacing:.02em;
+  white-space:pre-wrap;
+}
+.pattern-choices{top:40%;bottom:9%}
+.pair-grid-hard{grid-template-columns:repeat(3,1fr);inset:9%}
+.brain-grid{inset:5%}
+
+@media(max-width:420px){
+  .count-symbol{font-size:clamp(1.9rem,9vw,3rem)}
+  .hard-order{inset:6%;gap:8px}
+  .hard-order .order-item{min-height:58px}
+  .path-grid{inset:5%;gap:5px}
+}
