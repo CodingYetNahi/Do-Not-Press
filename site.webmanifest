@@ -1,0 +1,10 @@
+{
+  "name": "DON'T PRESS THAT",
+  "short_name": "DPT",
+  "description": "100 fast arcade mini games in one free browser game.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#050712",
+  "theme_color": "#070912"
+}
