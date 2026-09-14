@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
-  <meta name="theme-color" content="#070912">
+  <meta name="theme-color" content="#000000">
   <meta name="color-scheme" content="dark">
   <title>DON'T PRESS THAT — 100 Fast Fun Mini Games</title>
   <meta name="description" content="Play DON'T PRESS THAT, a free fast-paced fun game with 100 bite-size arcade mini games, reaction challenges, memory games, timing tests and quick puzzles.">
@@ -14,73 +14,49 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="DON'T PRESS THAT">
   <meta property="og:title" content="DON'T PRESS THAT — 100 Fast Fun Mini Games">
-  <meta property="og:description" content="A free rapid-fire arcade packed with 100 quick mini games. Read fast, decide, act and chase your best streak.">
+  <meta property="og:description" content="A free rapid-fire arcade packed with 100 quick mini games.">
   <meta property="og:url" content="https://whyiamdoingthis.fun/">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="DON'T PRESS THAT — 100 Fast Fun Mini Games">
   <meta name="twitter:description" content="100 quick arcade mini games in one free browser game.">
   <link rel="stylesheet" href="./styles/main.css">
   <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"VideoGame",
-    "name":"DON'T PRESS THAT",
-    "url":"https://whyiamdoingthis.fun/",
-    "description":"A free browser arcade with 100 fast mini games focused on reaction, memory, timing and quick decisions.",
-    "genre":["Arcade","Casual","Puzzle","Reaction"],
-    "playMode":"SinglePlayer",
-    "applicationCategory":"Game",
-    "operatingSystem":"Any modern web browser",
-    "inLanguage":"en",
-    "isAccessibleForFree":true
-  }
+  {"@context":"https://schema.org","@type":"VideoGame","name":"DON'T PRESS THAT","url":"https://whyiamdoingthis.fun/","description":"A free browser arcade with 100 fast mini games focused on reaction, memory, timing and quick decisions.","genre":["Arcade","Casual","Puzzle","Reaction"],"playMode":"SinglePlayer","applicationCategory":"Game","operatingSystem":"Any modern web browser","inLanguage":"en","isAccessibleForFree":true}
   </script>
 </head>
 <body>
   <main id="app" aria-live="polite">
     <header class="hud hidden" id="hud" aria-label="Game score">
       <div><small>SCORE</small><strong id="score">0</strong></div>
-      <div class="brand">DPT<span>•</span><small>100 GAME DECK</small></div>
       <div><small>BEST</small><strong id="best">0</strong></div>
     </header>
 
-    <button id="mute" class="icon-button" aria-label="Mute sound" title="Sound and music">♪</button>
+    <button id="mute" class="icon-button" aria-label="Mute sound" title="Sound">♪</button>
 
     <section id="intro" class="screen intro">
-      <div class="intro-copy">
-        <p class="kicker">100 QUICK GAMES · ONE LIFE</p>
-        <h1>DON'T<br><span>PRESS</span><br>THAT</h1>
-        <p class="intro-deck">A fast, free fun game built from reaction tests, memory games, timing challenges and tiny arcade puzzles.</p>
-      </div>
-      <div class="button-stage">
-        <div class="warning-ring" aria-hidden="true"></div>
-        <button id="forbidden" class="forbidden" aria-label="Start DON'T PRESS THAT"><span>DO NOT<br>PRESS</span></button>
-        <p>Seriously.</p>
-      </div>
-      <p class="music-note">Music starts after your first press. Sound can be muted anytime.</p>
+      <h1>DON'T<br><span>PRESS</span><br>THAT</h1>
+      <button id="forbidden" class="forbidden" aria-label="Start DON'T PRESS THAT"><span>DO NOT<br>PRESS</span></button>
     </section>
 
     <section id="game" class="screen hidden" aria-label="Current mini game">
-      <div class="round-note" aria-hidden="true"><span></span> READ · DECIDE · ACT <span></span></div>
       <div id="instruction" class="instruction"></div>
       <div id="sub" class="sub"></div>
-      <div class="timer-wrap"><span>TIME</span><div id="timer" class="timer" aria-label="Time remaining"><i></i></div></div>
+      <div id="timer" class="timer" aria-label="Time remaining"><i></i></div>
       <div id="arena" class="arena" role="application" aria-label="Challenge play area" tabindex="-1"></div>
     </section>
 
     <section id="gameover" class="screen gameover hidden">
       <p class="eyebrow">GAME OVER</p>
-      <h2>YOU: <span id="final-score">0</span></h2>
-      <p>BEST: <b id="final-best">0</b></p>
+      <h2><span id="final-score">0</span></h2>
+      <p class="best-line">BEST <b id="final-best">0</b></p>
       <p id="verdict" class="verdict"></p>
-      <button id="restart" class="cta">ONE MORE?</button>
-      <details><summary>LOCAL DAMAGE REPORT</summary><div id="stats"></div></details>
+      <button id="restart" class="cta">PLAY AGAIN</button>
     </section>
 
     <div id="flash" aria-hidden="true"></div>
     <div id="toast" role="status"></div>
   </main>
-  <noscript>DON'T PRESS THAT needs JavaScript to run its mini games.</noscript>
+  <noscript>JavaScript is required to play.</noscript>
   <script type="module" src="./js/main.js"></script>
 </body>
 </html>
